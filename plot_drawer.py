@@ -41,3 +41,7 @@ class Drawer:
         plt.plot(x, y, color='red', label='Regression Line')
         plt.legend()
         plt.show()
+
+    def plot(self, vals):
+        plt.scatter(vals[:,0], vals[:,1])
+        plt.show()
