@@ -1,5 +1,6 @@
 from pandas import Series, DataFrame
 import matplotlib.pyplot as plt
+from linear_regression import SimpleLinearRegression, extended_linspace
 
 
 class Drawer:
@@ -27,7 +28,9 @@ class Drawer:
         plt.show()
 
 
-    def plot_scatter_with_regression_line(self, x: Series, y: Series, title: str):
+    def plot_scatter_with_regression_line(self, model: SimpleLinearRegression, x: Series, title: str):
+        x = extended_linspace(x, ratio=0.01)
+        y = model.predict(Series(x))
         plt.scatter(self.x, self.y)
         # 各点にインデックスを表示
         for i in range(self.size):
@@ -45,3 +48,16 @@ class Drawer:
     def plot(self, vals):
         plt.scatter(vals[:,0], vals[:,1])
         plt.show()
+
+
+
+class TableVisualizer:
+
+    def print_result_table(sifs: DataFrame, scores: list, round: int):
+        _df = DataFrame(
+            sifs.values, 
+            index=range(1,len(sifs)+1),
+            columns=sifs.columns
+        )
+        _df["score"] = scores
+        print(_df.round(round))

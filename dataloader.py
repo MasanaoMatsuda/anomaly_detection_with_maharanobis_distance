@@ -18,20 +18,21 @@ class AssignmentData:
         self._df = self.__load_data(path)
 
     def get_data(self):
-        return self._df.iloc[:, :2]
+        df = self._df.iloc[:, 1:3]
+        df.columns = ["height", "sitting height"] #文字化けの対処として英語化
+        return df
     
     def answer_sif_in_slope(self):
-        return select_column(self._df, 2)
-    
-    def answer_sif_in_intercept(self):
         return select_column(self._df, 3)
     
-    def answer_maharanobis(self):
+    def answer_sif_in_intercept(self):
         return select_column(self._df, 4)
+    
+    def answer_maharanobis(self):
+        return select_column(self._df, 5)
     
     def __load_data(self, path: str) -> pd.DataFrame:
         df = pd.read_csv(path, encoding='cp932')
-        df.set_index(df.columns[0], inplace=True)
         return df
 
 
